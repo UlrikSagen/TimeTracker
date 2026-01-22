@@ -78,17 +78,6 @@ public class MainView extends JFrame{
         setVisible(false);
     }
 
-    //Public static void enableHover(JButton b, Color normal, Color hover) {
-    //   b.setRolloverEnabled(true);
-    //   b.setContentAreaFilled(true);
-    //   b.setOpaque(true);
-    //   b.setBackground(normal);
-    //   b.getModel().addChangeListener(e -> {
-    //       ButtonModel m = b.getModel();
-    //       b.setBackground(m.isRollover() ? hover : normal);
-    //   });
-    //
-
     public java.net.URL res(String path) {
         var url = MainView.class.getClassLoader().getResource(path);
         if (url == null) throw new IllegalStateException("Missing resource: " + path);
