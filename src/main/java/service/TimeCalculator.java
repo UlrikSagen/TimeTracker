@@ -1,10 +1,9 @@
 package service;
-import model.TimeEntry;
-import model.Contract;
-
-import java.time.*;
+import java.time.Duration;
 import java.util.List;
-import java.util.ArrayList;
+
+import model.Contract;
+import model.TimeEntry;
 
 
 public class TimeCalculator {
@@ -24,7 +23,7 @@ public class TimeCalculator {
         return duration;
     }
 
-    private static Duration calculateOvertimeHours(Duration duration){
+    public static Duration calculateOvertimeHours(Duration duration){
         if(duration.toMinutes()>600){
             duration = duration.minusMinutes(600);
             return duration;
@@ -32,15 +31,20 @@ public class TimeCalculator {
         return Duration.ofMinutes(0);
     }
 
-    public static float calculateSalary(List<TimeEntry> entries, Contract contract){
+    public static float calculateSalary(List<TimeEntry> entries, Contract contract, Duration overTime){
         int salary = contract.getSalary();
-        float totalSalary = 0;
         int totalMinutes = getTotalMinutes(entries);
-        
-        totalSalary = (totalMinutes * salary)/60;
+        float overTimeSalary =  ((overTime.toMinutes()/60) * salary * contract.getOvertimeFactor());
+        float totalSalary = overTimeSalary + ((totalMinutes * salary)/60);
+
 
         return totalSalary;
+    }
 
+    public static float calculateOvertimeSalary(Contract contract, Duration overTime){
+        int salary = contract.getSalary();
+        float overTimeSalary =  ((overTime.toMinutes()/60) * salary * contract.getOvertimeFactor());
+        return overTimeSalary;
     }
 
     

@@ -1,15 +1,15 @@
 package storage;
 
-import model.*;
-import storage.CSVRepository;
-
-import java.nio.charset.StandardCharsets;
+import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.BufferedReader;
-import java.util.stream.Collectors;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.ArrayList;
+import java.util.stream.Collectors;
+
+import model.Contract;
+import model.Tariff;
+import model.TimeEntry;
 
 public class TimeRepository {
 
@@ -25,10 +25,11 @@ public class TimeRepository {
             float overtime = Float.parseFloat(extractNumber(json, "overtimeFactor"));
             boolean paidBreak = Boolean.parseBoolean(extractValue(json, "paidBreak"));
             String tariff = extractString(json, "tariff");
+            float hoursByWeek = Float.parseFloat(extractNumber(json, "hoursByWeek"));
 
-            return new Contract(salary, overtime, paidBreak, new Tariff(tariff));
+
+            return new Contract(salary, overtime, paidBreak, hoursByWeek, new Tariff(tariff));
         } catch (Exception e) {
-            e.printStackTrace();
             throw new IllegalStateException("Feil ved lasting av kontrakt", e);
         }
     }

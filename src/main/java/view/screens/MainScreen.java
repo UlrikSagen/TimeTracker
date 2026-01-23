@@ -1,18 +1,24 @@
 package view.screens;
 
-import controller.Controller;
-import view.*;
-
-import javax.swing.*;
-import java.awt.Dimension;
-import javax.swing.BoxLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
-
-import java.time.LocalTime;
-import java.time.LocalDate;
-import java.time.Instant;
 import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
+import controller.Controller;
+import view.AppTheme;
+import view.MainView;
 
 public class MainScreen extends JPanel {
 
@@ -26,18 +32,17 @@ public class MainScreen extends JPanel {
     private final JButton manualButton = new JButton("Manual Entry");
     private final JButton exitButton = new JButton("Shut Down");
     private final JButton overviewButton = new JButton("Overview");
-    private JButton settingsButton = new JButton("Settings");
-    private JButton hideButton = new JButton("Hide Window");
+    private final JButton settingsButton = new JButton("Settings");
+    private final JButton hideButton = new JButton("Hide Window");
     private final JLabel systemMessage = new JLabel();
     
     Dimension mainSize = new Dimension(200, 40);
-    Dimension menuSize = new Dimension(150, 30);
     Dimension systemMessageSize = new Dimension(200, 15);
 
     private final Controller controller;
     private final MainView view;
 
-    private javax.swing.Timer swingTimer;
+    private final javax.swing.Timer swingTimer;
     private LocalTime startTime;
     private Instant startInstant;
     private LocalDate startDate;

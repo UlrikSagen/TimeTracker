@@ -1,11 +1,16 @@
 package view.screens;
 
-import controller.Controller;
-import view.*;
-
-import javax.swing.*;
-import javax.swing.BoxLayout;
 import java.awt.Component;
+
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import controller.Controller;
+import view.AppTheme;
+import view.MainView;
 
 public class ManualEntryScreen extends JPanel{
     private final Controller controller;
@@ -43,7 +48,6 @@ public class ManualEntryScreen extends JPanel{
         backButton.setFocusable(false);
         backButton.setPreferredSize(AppTheme.MENU_SIZE);
         backButton.setMaximumSize(AppTheme.MENU_SIZE);
-        //view.enableHover(backButton, AppTheme.PRIMARY, AppTheme.HOVER);
         backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         backButton.addActionListener(e -> back());   
 

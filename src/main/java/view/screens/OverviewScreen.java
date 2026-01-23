@@ -1,13 +1,22 @@
 package view.screens;
 
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.time.LocalDate;
+
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
 import controller.Controller;
 import view.AppTheme;
 import view.MainView;
-
-import javax.swing.*;
-import java.awt.*;
-
-import java.time.LocalDate;
 
 
 public class OverviewScreen extends JPanel{
@@ -21,10 +30,10 @@ public class OverviewScreen extends JPanel{
     private final JPanel menu = new JPanel();
 
     private final JLabel entries = new JLabel("Current Entries:");
-    private JLabel hoursWorked = new JLabel();
-    private JLabel salaryLabel = new JLabel();
+    private final JLabel hoursWorked = new JLabel();
+    private final JLabel salaryLabel = new JLabel();
 
-    private JTextArea textArea = new JTextArea();
+    private final JTextArea textArea = new JTextArea();
 
     private final JButton backButton = new JButton("Back");
 
@@ -37,9 +46,9 @@ public class OverviewScreen extends JPanel{
     };
     private final JComboBox<String[]> yearList = new JComboBox(years);
 
-    private LocalDate currentDate = LocalDate.now();
-    private String currentYear = String.valueOf(currentDate.getYear());
-    private int currentMonth = currentDate.getMonthValue();
+    private final LocalDate currentDate = LocalDate.now();
+    private final String currentYear = String.valueOf(currentDate.getYear());
+    private final int currentMonth = currentDate.getMonthValue();
 
     public OverviewScreen(MainView view, Controller controller){
         this.controller = controller;

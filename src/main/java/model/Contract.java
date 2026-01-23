@@ -1,17 +1,18 @@
 package model;
 
-import model.Tariff;
 
 public class Contract {
     private final int salary;
     private final float overtimeFactor;
     private final boolean paidBreak;
+    private final float hoursByWeek;
     private final Tariff tariff;
 
-    public Contract(int salary, float overtimeFactor, boolean paidBreak, Tariff tariff){
+    public Contract(int salary, float overtimeFactor, boolean paidBreak, float hoursByWeek, Tariff tariff){
         this.salary = salary;
         this.overtimeFactor = overtimeFactor;
         this.paidBreak = paidBreak;
+        this.hoursByWeek = hoursByWeek;
         this.tariff = tariff;
     }
     public int getSalary(){
