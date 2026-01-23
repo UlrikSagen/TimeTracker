@@ -1,20 +1,19 @@
 package storage;
 
-import model.TimeEntry;
-import java.util.List;
-import java.util.ArrayList;
-
-import com.opencsv.CSVReader;
 import java.io.FileReader;
-import java.nio.file.Files;
-
-import com.opencsv.CSVWriter;
 import java.io.FileWriter;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+
+import model.TimeEntry;
 
 
 public class CSVRepository {
@@ -39,9 +38,8 @@ public class CSVRepository {
                 entries.add(entry);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("Failed to read CSV file: " + DATA_FILE, e);
         }
-
         return entries;
     }
 
@@ -63,20 +61,7 @@ public class CSVRepository {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("Failed to write CSV file: " + DATA_FILE, e);
         }
-    }
-
-    private static String serialize(TimeEntry entry) {
-        return entry.getDate() + ";" + entry.getStart() + ";" + entry.getEnd();
-    }
-
-    private static TimeEntry deserialize(String line) {
-        String[] parts = line.split(";");
-        return new TimeEntry(
-            java.time.LocalDate.parse(parts[0]),
-            java.time.LocalTime.parse(parts[1]),
-            java.time.LocalTime.parse(parts[2])
-        );
     }
 }

@@ -1,12 +1,13 @@
 package app;
 
-import view.*;
-import controller.Controller;
-import service.TimeService;
-import storage.TimeRepository;
+import javax.swing.SwingUtilities;
+
 import com.formdev.flatlaf.FlatDarkLaf;
 
-import javax.swing.*;
+import controller.Controller;
+import service.TimeService;
+import view.AppTheme;
+import view.MainView;
 
 public class Main {
     public static void main(String[] args) {

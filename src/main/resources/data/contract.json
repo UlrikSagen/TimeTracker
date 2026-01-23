@@ -2,7 +2,6 @@
     "salary": 260,
     "overtimeFactor": 1.5,
     "paidBreak": false,
-    "tariff": {
-      "tariff": "default"
-    }
+    "hoursByWeek": 37.5,
+    "tariff": "default"
 }

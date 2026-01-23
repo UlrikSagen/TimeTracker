@@ -27,4 +27,7 @@ public class Contract {
     public Tariff getTariff(){
         return this.tariff;
     }
+    public float getHoursByWeek(){
+        return this.hoursByWeek;
+    }
 }
