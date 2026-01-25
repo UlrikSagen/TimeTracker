@@ -83,9 +83,10 @@ public class TimeService {
         return filtered;
     }
 
-    //method for formatting hours worked string
-    public String hoursWorkedString(int totalMinutes){
-        return(totalMinutes/60 + " hours and " + totalMinutes % 60 + " minutes.");
+    public long getMinutesByEntry(TimeEntry entry){
+        int minutes = 0;
+        minutes += TimeCalculator.calculateBreak(Duration.between(entry.getStart(), entry.getEnd())).toMinutes();
+        return minutes;
     }
 
     //method for calculating total salary

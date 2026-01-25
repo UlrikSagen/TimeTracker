@@ -2,7 +2,6 @@ package view.screens;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.time.LocalDate;
 
 import javax.swing.Box;
@@ -11,12 +10,12 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
 import controller.Controller;
 import view.AppTheme;
 import view.MainView;
+import view.util.MonthEntriesPanel;
+import view.util.timeEntryFormatter;
 
 
 public class OverviewScreen extends JPanel{
@@ -33,8 +32,6 @@ public class OverviewScreen extends JPanel{
     private final JLabel hoursWorked = new JLabel();
     private final JLabel salaryLabel = new JLabel();
 
-    private final JTextArea textArea = new JTextArea();
-
     private final JButton backButton = new JButton("Back");
 
     private final String[] months = {
@@ -50,9 +47,12 @@ public class OverviewScreen extends JPanel{
     private final String currentYear = String.valueOf(currentDate.getYear());
     private final int currentMonth = currentDate.getMonthValue();
 
+    private MonthEntriesPanel panelEntriesPanel;
+
     public OverviewScreen(MainView view, Controller controller){
         this.controller = controller;
         this.view = view;
+        this.panelEntriesPanel = new MonthEntriesPanel(this.controller);
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -67,24 +67,11 @@ public class OverviewScreen extends JPanel{
         //ENTRIES LABEL
         entries.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        //TEXT AREA
-        textArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 13));
-        textArea.setText(controller.entriesToString(getMonth(), getYear()));
-        textArea.setEditable(false);
-        textArea.setAlignmentX(Component.CENTER_ALIGNMENT);
-        textArea.setFocusable(false);
-
-        JScrollPane scrollPane = new JScrollPane(
-        textArea,
-        JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-        JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
-        );
-        scrollPane.setPreferredSize(new Dimension(300, 400));
-        scrollPane.setMaximumSize(new Dimension(300, 400));
-        scrollPane.setFocusable(false);
+        //TEST FOR ENTRY PANEL
+        panelEntriesPanel.setEntriesForMonth(controller.getEntriesByMonth(getMonth(), getYear()));
 
         //HOURS WORKED LABEL
-        hoursWorked.setText(controller.hoursWorkedString(getMonth(), getYear()));
+        hoursWorked.setText(timeEntryFormatter.hoursWorked(controller.getMinutesByMonth(getMonth(), getYear())));
         hoursWorked.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         //SALARY LABEL
@@ -127,10 +114,8 @@ public class OverviewScreen extends JPanel{
         dropDown.add(monthList);
         dropDown.add(yearList);
 
-        //add(Box.createVerticalStrut(10));
-
         add(body);
-        body.add(scrollPane);
+        body.add(panelEntriesPanel);
         body.add(hoursWorked);
         body.add(salaryLabel);
 
@@ -142,8 +127,8 @@ public class OverviewScreen extends JPanel{
     }
 
     public void refresh(){
-        textArea.setText(controller.entriesToString(getMonth(), getYear()));
-        hoursWorked.setText(controller.hoursWorkedString(getMonth(), getYear()));
+        panelEntriesPanel.setEntriesForMonth(controller.getEntriesByMonth(getMonth(), getYear()));
+        hoursWorked.setText(timeEntryFormatter.hoursWorked(controller.getMinutesByMonth(getMonth(), getYear())));
         salaryLabel.setText("Estimated Salary: " + (controller.getSalary(getMonth(), getYear()) + "kr"));
     }
 

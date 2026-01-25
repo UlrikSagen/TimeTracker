@@ -16,7 +16,7 @@ public class TimeCalculator {
         return totalMinutes;
     }
 
-    private static Duration calculateBreak(Duration duration) {
+    public static Duration calculateBreak(Duration duration) {
         if (duration.toMinutes() > 300) {
             duration = duration.minusMinutes(30);
         }

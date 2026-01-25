@@ -25,7 +25,7 @@ public class TimeRepository {
             String json = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))
                     .lines().collect(Collectors.joining("\n"));
 
-            String salaryType = extractString(json, "salary_type");
+            String salaryType = extractString(json, "salaryType");
             int salary = Integer.parseInt(extractNumber(json, "salary"));
             float overtime = Float.parseFloat(extractNumber(json, "overtimeFactor"));
             boolean paidBreak = Boolean.parseBoolean(extractValue(json, "paidBreak"));

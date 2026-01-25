@@ -34,6 +34,12 @@ public class Controller {
         return service.getTotalMinutes();
     }
 
+    public int getMinutesByEntry(TimeEntry entry){
+        int minutes = 0;
+        minutes += service.getMinutesByEntry(entry);
+        return minutes;
+    }
+
 
     public void deleteEntry(LocalDate date) {
         service.deleteEntry(date);
@@ -41,36 +47,6 @@ public class Controller {
 
     public String getDate(){
         return LocalDate.now().toString();
-    }
-
-    public String entriesToString(int month, int year){
-        List<TimeEntry> entriesByMonth = getEntriesByMonth(month, year);
-        List<String> entriesByMonthList = getListOfStrings(entriesByMonth);
-        String printableString = printableString(entriesByMonthList);
-        return printableString;
-    }
-
-    public List<String> getListOfStrings(List<TimeEntry> entriesByMonth){
-        List<String> listOfStrings =  new ArrayList<>();
-        String entryToString;
-        for (TimeEntry entry : entriesByMonth){
-            entryToString = entry.getDate() + ":     " + entry.getStart() + "   -   " + entry.getEnd();
-            listOfStrings.add(entryToString);
-        }
-        return listOfStrings;
-    }
-
-    public String entryToString(TimeEntry entry){
-        String entryToString = entry.getDate() + ":     " + entry.getStart() + "   -   " + entry.getEnd();
-        return entryToString;
-    }
-
-    public String printableString(List<String> entries) {
-        return String.join("\n", entries);
-    }
-
-    public String hoursWorkedString(int month, int year){
-        return service.hoursWorkedString(getMinutesByMonth(month, year));
     }
 
     public float getSalaryByMonth(int month, int year){
