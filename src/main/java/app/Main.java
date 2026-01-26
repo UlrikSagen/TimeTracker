@@ -24,7 +24,5 @@ public class Main {
             Controller controller = new Controller(new TimeService(repo));
             new MainView(controller).showUI();
         });
-        
-        // Additional application logic can be added here
     }
 }
