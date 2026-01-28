@@ -2,12 +2,14 @@ package view.util;
 
 import model.TimeEntry;
 import controller.Controller;
+import view.MainView;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import java.awt.*;
 import java.awt.event.*;
+
 
 public class MonthEntriesPanel extends JPanel {
 
@@ -16,9 +18,11 @@ public class MonthEntriesPanel extends JPanel {
     private final DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
     
     private final Controller controller;
+    private final MainView view;
 
-    public MonthEntriesPanel(Controller controller) {
+    public MonthEntriesPanel(MainView view, Controller controller) {
         this.controller = controller;
+        this.view = view;
         this.model = new TimeEntryTableModel(controller);
         this.table = new JTable(model);
 
@@ -80,8 +84,10 @@ public class MonthEntriesPanel extends JPanel {
         if (row < 0) return;
 
         TimeEntry entry = model.getEntryAt(row);
-
-        JOptionPane.showMessageDialog(this, "Edit: " + entry.getDate() + " " + entry.getStart() + "-" + entry.getEnd());
+        int ok = JOptionPane.showConfirmDialog(this, "Edit: " + entry.getDate() + " " + entry.getStart() + "-" + entry.getEnd(), "Bekreft endring", JOptionPane.YES_NO_OPTION);
+        if (ok == JOptionPane.YES_OPTION){
+            view.showEditManualEntry(entry.getDate(), entry.getStart(), entry.getEnd());
+        }
     }
 
     private void deleteSelected() {

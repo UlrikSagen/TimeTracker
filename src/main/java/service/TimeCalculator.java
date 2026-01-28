@@ -47,7 +47,5 @@ public class TimeCalculator {
         float overtimeHours = overTime.toMinutes()/60.0f;
         float overTimeSalary =  overtimeHours * salary * contract.getOvertimeFactor();
         return overTimeSalary;
-    }
-
-    
+    }    
 }

@@ -17,7 +17,7 @@ public class Main {
     public static void main(String[] args) {
         FlatDarkLaf.setup();
         AppTheme.apply();
-
+        
         SwingUtilities.invokeLater(() -> {
             Path dbPath = Path.of(System.getProperty("user.home"), ".timetracker", "timetracker.db");
             TimeRepository repo = new SQLiteRepository(dbPath);

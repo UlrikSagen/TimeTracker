@@ -10,6 +10,8 @@ import java.awt.Color;
 import java.awt.CardLayout;
 import java.awt.Font;
 import java.awt.Image;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 
 public class MainView extends JFrame{
@@ -26,6 +28,7 @@ public class MainView extends JFrame{
     Font mainFont = new Font("Inter", Font.PLAIN, 16);
 
     private OverviewScreen overviewScreen;
+    private ManualEntryScreen manualEntryScreen;
 
     public MainView(Controller controller) {
         cards = new CardLayout();
@@ -46,11 +49,12 @@ public class MainView extends JFrame{
         setResizable(false);
 
         overviewScreen = new OverviewScreen(this, controller);
+        manualEntryScreen = new ManualEntryScreen(this, controller);
 
         //root.add(new SplashScreen(this), "start");
         root.add(new MainScreen(this, controller), "main");
         root.add(overviewScreen, "overview");
-        root.add(new ManualEntryScreen(this, controller), "manualentry");
+        root.add(manualEntryScreen, "manualentry");
     }
 
     public void showUI() {
@@ -68,6 +72,13 @@ public class MainView extends JFrame{
     }
 
     public void showManualEntry(){
+        manualEntryScreen.refresh();
+        cards.show(root, "manualentry");
+    }
+
+    public void showEditManualEntry(LocalDate date, LocalTime start, LocalTime end){
+        manualEntryScreen.refresh();
+        manualEntryScreen.editEntry(date, start, end);
         cards.show(root, "manualentry");
     }
 

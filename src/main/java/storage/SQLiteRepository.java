@@ -32,9 +32,10 @@ public class SQLiteRepository implements TimeRepository {
     private void initSchema() {
         String sql = """
             CREATE TABLE IF NOT EXISTS time_entries (
-              date TEXT PRIMARY KEY,
-              start_time TEXT NOT NULL,
-              end_time TEXT NOT NULL
+                id TEXT NOT NULL,
+                date TEXT PRIMARY KEY,
+                start_time TEXT NOT NULL,
+                end_time TEXT NOT NULL
             );
             """;
         try (Connection c = connect(); Statement st = c.createStatement()) {
@@ -46,7 +47,7 @@ public class SQLiteRepository implements TimeRepository {
 
     @Override
     public List<TimeEntry> loadEntries() {
-        String sql = "SELECT date, start_time, end_time FROM time_entries ORDER BY date";
+        String sql = "SELECT id, date, start_time, end_time FROM time_entries ORDER BY date";
         List<TimeEntry> out = new ArrayList<>();
 
         try (Connection c = connect();
@@ -54,10 +55,11 @@ public class SQLiteRepository implements TimeRepository {
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
+                UUID id = UUID.fromString(rs.getString("id"));
                 LocalDate date = LocalDate.parse(rs.getString("date"));
                 LocalTime start = LocalTime.parse(rs.getString("start_time"));
                 LocalTime end = LocalTime.parse(rs.getString("end_time"));
-                out.add(new TimeEntry(date, start, end));
+                out.add(new TimeEntry(id, date, start, end));
             }
         } catch (SQLException e) {
             throw new RuntimeException("loadEntries feilet", e);
@@ -70,11 +72,12 @@ public class SQLiteRepository implements TimeRepository {
         // enkleste: overskriv alt (greit for nå)
         String deleteSql = "DELETE FROM time_entries";
         String upsertSql = """
-            INSERT INTO time_entries(date, start_time, end_time)
-            VALUES(?, ?, ?)
+            INSERT INTO time_entries(id, date, start_time, end_time)
+            VALUES(?, ?, ?, ?)
             ON CONFLICT(date) DO UPDATE SET
-              start_time = excluded.start_time,
-              end_time   = excluded.end_time
+                id = excluded.id,
+                start_time = excluded.start_time,
+                end_time   = excluded.end_time
             """;
 
         try (Connection c = connect()) {
@@ -86,9 +89,10 @@ public class SQLiteRepository implements TimeRepository {
 
             try (PreparedStatement ps = c.prepareStatement(upsertSql)) {
                 for (TimeEntry e : entries) {
-                    ps.setString(1, e.getDate().toString());
-                    ps.setString(2, e.getStart().toString());
-                    ps.setString(3, e.getEnd().toString());
+                    ps.setString(1, e.getID().toString());
+                    ps.setString(2, e.getDate().toString());
+                    ps.setString(3, e.getStart().toString());
+                    ps.setString(4, e.getEnd().toString());
                     ps.addBatch();
                 }
                 ps.executeBatch();

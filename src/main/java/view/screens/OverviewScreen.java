@@ -52,7 +52,7 @@ public class OverviewScreen extends JPanel{
     public OverviewScreen(MainView view, Controller controller){
         this.controller = controller;
         this.view = view;
-        this.panelEntriesPanel = new MonthEntriesPanel(this.controller);
+        this.panelEntriesPanel = new MonthEntriesPanel(this.view, this.controller);
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 

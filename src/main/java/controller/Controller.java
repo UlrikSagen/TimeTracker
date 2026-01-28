@@ -50,6 +50,10 @@ public class Controller {
         return service.calculateSalary();
     }
 
+    public float getSalary(int year){
+        return service.calculateSalary(year);
+    }
+
     public float getSalary(int month, int year){
         return service.calculateSalary(month, year);
     }
@@ -66,6 +70,9 @@ public class Controller {
     }
     public Duration getOvertime(int month, int year){
         return service.getOvertime(month, year);
+    }
+    public boolean validateEntry(LocalDate date, LocalTime start, LocalTime end){
+        return service.validateEntry(date, start, end);
     }
 }
 

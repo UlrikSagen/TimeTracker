@@ -29,7 +29,7 @@ public class MainScreen extends JPanel {
     private final JLabel timerLabel = new JLabel("00:00:00");
     private final JButton startButton = new JButton("Start Timer");
     private final JButton stopButton = new JButton("Stop Timer");
-    private final JButton manualButton = new JButton("Manual Entry");
+    private final JButton manualButton = new JButton("Add or Edit");
     private final JButton exitButton = new JButton("Exit");
     private final JButton overviewButton = new JButton("Overview");
     private final JButton settingsButton = new JButton("Settings");
@@ -37,7 +37,6 @@ public class MainScreen extends JPanel {
     private final JLabel systemMessage = new JLabel();
     
     Dimension mainSize = new Dimension(200, 40);
-    Dimension systemMessageSize = new Dimension(200, 15);
 
     private final Controller controller;
     private final MainView view;
@@ -88,16 +87,12 @@ public class MainScreen extends JPanel {
 
         //START BUTTON
         startButton.setFocusable(false);
-        startButton.setPreferredSize(mainSize);
-        startButton.setMaximumSize(mainSize);
         startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         startButton.addActionListener(e -> startTimer());
         AppTheme.stylePrimaryButton(startButton);
         
         //STOP BUTTON
         stopButton.setFocusable(false);
-        stopButton.setPreferredSize(mainSize);
-        stopButton.setMaximumSize(mainSize);
         stopButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         stopButton.addActionListener(e -> stopTimer());
         stopButton.setVisible(false);
@@ -105,9 +100,9 @@ public class MainScreen extends JPanel {
 
         //SYSTEM MESSAGE LABEL
         systemMessage.setFont(new Font("Inter", Font.PLAIN, 12));
-        systemMessage.setPreferredSize(systemMessageSize);
-        systemMessage.setMaximumSize(systemMessageSize);
-        systemMessage.setMinimumSize(systemMessageSize);
+        systemMessage.setPreferredSize(AppTheme.systemMessageSize);
+        systemMessage.setMaximumSize(AppTheme.systemMessageSize);
+        systemMessage.setMinimumSize(AppTheme.systemMessageSize);
         systemMessage.setAlignmentX(Component.CENTER_ALIGNMENT);
         systemMessage.setHorizontalAlignment(SwingConstants.CENTER);
 

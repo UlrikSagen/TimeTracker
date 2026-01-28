@@ -44,6 +44,10 @@ public final class AppTheme {
 
     // ===== Dimensions =====
     public static final Dimension MENU_SIZE = new Dimension(150, 30);
+    public static final Dimension PICKER_SIZE = new Dimension(200, 30);
+    public static final Dimension mainSize = new Dimension(200, 40);
+    public static final Dimension systemMessageSize = new Dimension(200, 15);
+
 
     // ===== Public entrypoint =====
     public static void apply() {
@@ -275,6 +279,8 @@ public final class AppTheme {
         b.setBackground(PRIMARY);
         b.setForeground(TEXT);
         b.setFocusPainted(false);
+        b.setPreferredSize(mainSize);
+        b.setMaximumSize(mainSize);
         b.setBorder(BorderFactory.createEmptyBorder(10, 16, 10, 16));
     }
 
@@ -284,6 +290,8 @@ public final class AppTheme {
         b.setBackground(SECONDARY);
         b.setForeground(new Color(0x0B0B0B));
         b.setFocusPainted(false);
+        b.setPreferredSize(mainSize);
+        b.setMaximumSize(mainSize);
         b.setBorder(BorderFactory.createEmptyBorder(10, 16, 10, 16));
     }
 

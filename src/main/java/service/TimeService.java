@@ -83,6 +83,18 @@ public class TimeService {
         return filtered;
     }
 
+    public List<TimeEntry> filterByYear(int year){
+        List<TimeEntry> filtered = new ArrayList<>();
+        for (TimeEntry entry : this.entries) {
+            if (entry.getDate().getYear() == year) {
+                filtered.add(entry);
+            }
+        }
+
+        return filtered;
+    }
+
+
     public long getMinutesByEntry(TimeEntry entry){
         return TimeCalculator.calculateBreak(Duration.between(entry.getStart(), entry.getEnd())).toMinutes();
     }
@@ -91,6 +103,13 @@ public class TimeService {
     public float calculateSalary(){
         Duration overTime = getOvertime();
         float totalSalary = TimeCalculator.calculateSalary(this.entries, this.contract, overTime);
+
+        return totalSalary;
+    }
+
+    public float calculateSalary(int year){
+        Duration totalOvertime = getOvertime(year);
+        float totalSalary = TimeCalculator.calculateSalary(filterByYear(year), this.contract, totalOvertime);
 
         return totalSalary;
     }
@@ -129,11 +148,32 @@ public class TimeService {
         }
         return totalOvertime;
     }
+
+    public Duration getOvertime(int year){
+        Duration totalOvertime = Duration.ZERO;
+        for (TimeEntry entry : filterByYear(year)){
+            totalOvertime = totalOvertime.plus(TimeCalculator.calculateOvertimeHours(Duration.between(entry.getStart(), entry.getEnd())));
+        }
+        return totalOvertime;
+    }
+
     public Duration getOvertime(){
         Duration totalOvertime = Duration.ZERO;
         for (TimeEntry entry : this.entries){
             totalOvertime = totalOvertime.plus(TimeCalculator.calculateOvertimeHours(Duration.between(entry.getStart(), entry.getEnd())));
         }
         return totalOvertime;
+    }
+
+    public boolean validateEntry(LocalDate date, LocalTime start, LocalTime end){
+        if(date.isAfter(LocalDate.now())){
+            return false;
+        }
+        else if(start.isAfter(end)){
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 }

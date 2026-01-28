@@ -11,6 +11,5 @@ public interface TimeRepository {
     void saveContract(Contract contract);
     
     List<TimeEntry> loadEntries();
-
     void saveEntries(List<TimeEntry> entries);
 }
